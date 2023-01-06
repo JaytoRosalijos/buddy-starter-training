@@ -12,7 +12,7 @@ export type Props = {
     onClick?: () => void;
 }
 
-const Button = ({ variance = "primary", block = false, shape, size, icon, disabled = false, children, onClick }: Props) => {
+const Button = ({ variance = "primary", block, shape, size, icon, disabled, children, onClick }: Props) => {
     return (
         <ButtonStyle 
             variance={variance}
