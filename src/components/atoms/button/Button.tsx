@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import { ButtonStyle } from './styles';
 
 export type Props = {
@@ -9,7 +9,7 @@ export type Props = {
     icon?: React.ReactNode;
     disabled?: boolean;
     children?: React.ReactNode;
-    onClick?: (MouseEventHandler<HTMLAnchorElement> & MouseEventHandler<HTMLButtonElement> & Function) | undefined
+    onClick?: () => void;
 }
 
 const Button = (props: Props) => {
