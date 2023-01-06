@@ -12,16 +12,20 @@ export type Props = {
     onClick?: () => void;
 }
 
-const Button = (props: Props) => {
+const Button = ({ variance = "primary", block = false, shape, size, icon, disabled = false, children, onClick }: Props) => {
     return (
-        <ButtonStyle {...props}>{ props.children }</ButtonStyle>
+        <ButtonStyle 
+            variance={variance}
+            block={block}
+            shape={shape}
+            size={size}
+            icon={icon }
+            disabled={disabled}
+            onClick={onClick}
+        >
+            { children }
+        </ButtonStyle>
     );
 };
-
-Button.defaultProps = {
-    variance: "primary",
-    block: false,
-    disabled: false,
-}
 
 export default Button;
