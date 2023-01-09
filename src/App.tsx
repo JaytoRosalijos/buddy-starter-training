@@ -1,8 +1,8 @@
 import React from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 
-import { Button } from './components/atoms/button';
-import { TextInput } from './components/atoms/text-input';
+import { Button } from './components/atoms/Button';
+import { TextInput } from './components/atoms/TextInput';
 
 import './App.css';
 

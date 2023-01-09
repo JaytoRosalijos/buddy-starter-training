@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { SearchOutlined } from '@ant-design/icons';
 
-import TextInput from './TextInput';
+import { TextInput } from '.';
 
 export default {
     title: "Atoms/TextInput",
