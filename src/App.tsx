@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 
 import { Button } from './components/atoms/Button';
 import { TextInput } from './components/atoms/TextInput';
+import { Toast } from './components/atoms/Toast';
 
 import './App.css';
 
 function App() {
+  const [ show, updateShow ] = useState(false);
+
   return (
     <div className="App">
       <div>
@@ -23,6 +26,10 @@ function App() {
         <TextInput allowClear />
         <TextInput title="Input" allowClear />
         <TextInput prefix={<SearchOutlined />} />
+      </div>
+      <div>
+        <Button onClick={() => updateShow(true)}>Show toast</Button>
+        <Toast message="I am toast congrulations! yeheeeeey!" show={show} onClose={() => updateShow(false) } />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import { InputStyle, TitleWrapper } from './styles';
 import { CustomCloseCircleFilled } from './styles';
 
-export type Props = {
+export type TextInputProps = {
     allowClear?: boolean;
     value?: string;
     type?: string;
@@ -22,7 +22,7 @@ const TextInput = ({
         prefix, 
         onChange, 
         onPressEnter,
-    }: Props) => {
+    }: TextInputProps) => {
     return (
         <div>
             { title && <TitleWrapper>{ title }</TitleWrapper> }

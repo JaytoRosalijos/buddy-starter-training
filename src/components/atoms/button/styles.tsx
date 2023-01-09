@@ -1,6 +1,6 @@
 import { Button } from 'antd';
 import styled from 'styled-components';
-import { Props } from './Button';
+import { ButtonProps } from './Button';
 import { Palette } from '../../../themes';
 
 const baseStyle = `
@@ -46,5 +46,5 @@ const variances = {
 
 export const ButtonStyle = styled(Button)`
     ${baseStyle}
-    ${(props: Props) => variances[props.variance || 'primary']}
+    ${(props: ButtonProps) => variances[props.variance || 'primary']}
 `;
