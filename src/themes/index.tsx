@@ -4,5 +4,8 @@ export const Palette = {
     secondary: "#2f80ed26",
     errorDark: "#ED2F2F",
     errorLight: "#FCE0E0",
-    white: '#FFFFFF',
+    white: "#FFFFFF",
+    grayDark: "#828282",
+    gray: "#BDBDBD",
+    green: "#6FCF97",
 };
