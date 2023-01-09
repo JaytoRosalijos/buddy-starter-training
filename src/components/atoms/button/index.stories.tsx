@@ -2,12 +2,12 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { SearchOutlined } from '@ant-design/icons';
 
-import Button from './Button';
+import { Button } from '.';
 
 export default {
   title: 'Atoms/Button',
   component: Button,
-  argTypes: { onClick: { action: 'clicked' } },
+  argTypes: { onClick: { action: 'clicked me' } },
   args: { children: 'Click Me' },
 } as ComponentMeta<typeof Button>;
 
