@@ -1,7 +1,7 @@
 import React from 'react';
 import { ButtonStyle } from './styles';
 
-export type Props = {
+export type ButtonProps = {
     variance?: "primary" | "secondary" | "text" | "error";
     block?: boolean,
     shape?: "default" | "circle" | "round";
@@ -12,7 +12,7 @@ export type Props = {
     onClick?: () => void;
 }
 
-const Button = ({ variance = "primary", block, shape, size, icon, disabled, children, onClick }: Props) => {
+const Button = ({ variance = "primary", block, shape, size, icon, disabled, children, onClick }: ButtonProps) => {
     return (
         <ButtonStyle 
             variance={variance}
