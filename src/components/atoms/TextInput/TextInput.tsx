@@ -1,19 +1,24 @@
 import React from 'react';
-import { InputStyle, TitleWrapper } from './styles';
-import { CustomCloseCircleFilled } from './styles';
+import { 
+    InputStyle, 
+    TitleWrapper,
+    CustomCloseCircleFilled
+} from './styles';
 
 export type TextInputProps = {
+    name?: string,
     allowClear?: boolean;
     value?: string;
     type?: string;
     title?: string;
     placeholder?: string;
     prefix?: React.ReactNode;
-    onChange?: () => void;
+    onChange?: (e: any) => void;
     onPressEnter?: () => void;
 }
 
 const TextInput = ({ 
+        name,
         allowClear, 
         value, 
         type, 
@@ -27,6 +32,7 @@ const TextInput = ({
         <div>
             { title && <TitleWrapper>{ title }</TitleWrapper> }
             <InputStyle 
+                name={name}
                 type={type}
                 value={value} 
                 allowClear={allowClear ? { clearIcon: <CustomCloseCircleFilled /> } : false}
