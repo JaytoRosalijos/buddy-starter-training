@@ -8,6 +8,7 @@ export const Palette = {
     white: "#FFFFFF",
     grayDark: "#828282",
     gray: "#BDBDBD",
+    gray1: "#333333",
     green: "#6FCF97",
 };
 
