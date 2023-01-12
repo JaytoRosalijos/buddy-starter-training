@@ -11,6 +11,7 @@ const baseStyle = `
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: none;
 `
 
 const primaryButtonStyle = `

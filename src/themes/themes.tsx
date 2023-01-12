@@ -2,12 +2,15 @@ export const Palette = {
     primary: "#2F80ED",
     primaryLight: "#9ABFF1",
     primaryLight1: "#86A8D6",
+    primaryLight2: "#9EB7DA",
     secondary: "#2f80ed26",
     errorDark: "#ED2F2F",
     errorLight: "#FCE0E0",
+    errorLight1: "#E78585",
     white: "#FFFFFF",
     grayDark: "#828282",
     gray: "#BDBDBD",
+    gray1: "#333333",
     green: "#6FCF97",
 };
 

@@ -10,7 +10,7 @@ export type ButtonProps = {
     disabled?: boolean;
     children?: React.ReactNode;
     htmlType?: "submit" | "reset" | "button";
-    onClick?: () => void;
+    onClick?: (e: any) => void;
 }
 
 const Button = ({ 
