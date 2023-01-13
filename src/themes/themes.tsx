@@ -12,6 +12,7 @@ export const Palette = {
     gray: "#BDBDBD",
     gray1: "#333333",
     green: "#6FCF97",
+    black: "#000000",
 };
 
 export const Breakpoints = {

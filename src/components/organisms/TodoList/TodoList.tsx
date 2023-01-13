@@ -2,18 +2,13 @@ import React from 'react';
 
 import { TodoListItem } from '../../molecules/TodoListItem';
 import { Wrapper } from './styles';
+import { TodoType } from '../../../data';
 
-export type Todo = {
-    id: string | number;
-    title: string,
+export type TodoListProps = {
+    todos: TodoType[];
 };
 
-export type TodoProps = {
-    todos: Todo[];
-};
-
-
-const TodoList = ({ todos }: TodoProps) => {
+const TodoList = ({ todos }: TodoListProps) => {
     return (
         <Wrapper>
             { 
