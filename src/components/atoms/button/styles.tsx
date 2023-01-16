@@ -34,7 +34,7 @@ const errorButtonStyle = `
     color: ${Palette.errorDark};
 `;
 const textButtonStyle = `
-    background: ${Palette.white};
+    background: none;
     color: ${Palette.primary};
 `;
 
