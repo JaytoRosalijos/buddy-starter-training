@@ -8,7 +8,6 @@ import {
 
 
 export type TodoListItemProps = {
-    key: string | number;
     title?: string;
     status?: "normal" | "select" | "warning" | "crushout";
     active?: boolean;
@@ -16,14 +15,13 @@ export type TodoListItemProps = {
 };
 
 const TodoListItem = ({
-        key,
         title, 
         status = "normal", 
         onClick, 
         active,
      }:TodoListItemProps) => {
     return (
-        <Wrapper key={key} status={status} active={active}>
+        <Wrapper status={status} active={active}>
             <div>{ title }</div>
             {
                 status !== "crushout" && (
