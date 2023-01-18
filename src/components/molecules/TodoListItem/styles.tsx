@@ -1,20 +1,15 @@
 import styled from 'styled-components';
 import { Palette } from '../../../themes/themes';
-import { TodoListItemProps } from './TodoListItem';
+import { TodoListItemStatus } from './TodoListItem';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ status: TodoListItemStatus }>`
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
 
     div {
-        ${(props: TodoListItemProps) => status[props.status || "normal"]}
-    }
-
-    .anticon-more {
-        font-size: 20px;
-        color:  ${(props: TodoListItemProps) => props.active ? Palette.primary : Palette.grayDark }
+        ${(props) => status[props.status]}
     }
 `;
 
@@ -35,9 +30,14 @@ const CrushedOut = `
     text-decoration-line: line-through;
 `;
 
+const ActiveKebab = `
+    color: ${Palette.gray1};
+`;
+
 const status = {
     normal: Normal,
     select: Selected,
     warning: ToBeDeleted,
     crushout: CrushedOut,
+    activeKebab: ActiveKebab,
 };

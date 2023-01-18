@@ -7,6 +7,14 @@ import { todos } from '../../../data';
 export default {
     title: "Templates/TodoHome",
     component: TodoHome,
+    argTypes: {
+        onAddTodo: { action: "Redirect to Add To Do Page" }, 
+        onLogout: { action: "Redirect to Logout Page" },
+        onSelect: { action: "Redirect to Select Page" },
+        onSearch: { action: "Redirect to Search Page" }, 
+        onUpdateTodo: { action: "Redirect to Update To Do Page" },
+        deleteTodo: { action: "Delete To Do" },
+    },
 } as ComponentMeta<typeof TodoHome>;
 
 const Template: ComponentStory<typeof TodoHome> = (args) => <TodoHome { ...args } />;

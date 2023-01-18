@@ -5,8 +5,8 @@ import { Header } from '../../molecules/Header';
 import { TodoList } from '../../organisms/TodoList';
 import { Button } from '../../atoms/Button';
 import { TextInput } from '../../atoms/TextInput';
-import { ReactComponent as SearchIcon } from './icons/search.svg';
-import { ReactComponent as PlusIcon } from './icons/plus.svg';
+import { ReactComponent as SearchIcon } from '../../atoms/Icons/search.svg';
+import { ReactComponent as PlusIcon } from '../../atoms/Icons/plus.svg';
 import { TodoType } from '../../../data';
 import { DeleteTodoModal } from '../../molecules/DeleteTodoModal';
 import {
@@ -23,60 +23,67 @@ import { Toast } from '../../atoms/Toast';
 
 export type TodoHomeProps = {
     todos?: TodoType[];
-    onLogout?: (e: any) => void;
-    deleteTodo?: (id: string) => void;
+    onLogout: (e: any) => void;
+    deleteTodo: (id: string) => void;
+    onAddTodo: () => void;
+    onUpdateTodo: (todo: TodoType) => void;
+    onSearch: () => void;
+    onSelect: () => void;
+};
+
+type ListActiveItem = {
+    id: string;
+    status: TodoListItemStatus;
+};
+
+type ToastMessageStatus = {
+    show: boolean;
+    message: string;
+};
+
+type DeleteItemModalStatus = {
+    toBeDeletedId: string;
+    show: boolean;
 };
 
 const TodoHome = ({ 
         todos = [], 
         onLogout, 
-        deleteTodo = () => {},
+        deleteTodo,
+        onAddTodo,
+        onUpdateTodo,
+        onSearch,
+        onSelect,
     }: TodoHomeProps) => {
-    
-    const isEmpty = todos.length === 0;
-    const [isShowDeleteModal, setShowDeleteModal] = useState(false);
-    const [activeListItemId, setActiveListItemId] = useState<string>("");
-    const [todoListItemStatus, setTodoListItemStatus] = useState<TodoListItemStatus>("normal");
-    const [showToast, setShowToast] = useState(false);
-    const [toastMessage, setToastMessage] = useState("");
-    
-    const onAddTodo = () => {
-        alert("Redirect to Add Todo Page:");
-    };
-
-    const onUpdateTodo = (todo: TodoType) => {
-        alert("Redirect to Todo Update Page: Updating title: " + todo.title);
-    };
+    const [deleteItemModalStatus, setDeleteItemModalStatus] = useState<DeleteItemModalStatus>({ toBeDeletedId: "", show: false })
+    const [activeListItem, setListActiveItem] = useState<ListActiveItem>({ id: "", status: "normal" });
+    const [toastMessageStaus, setToastMessageStatus] = useState<ToastMessageStatus>({ show: false, message: "" });
 
     const onToBeDeleteTodo = (todo: TodoType) => {
-        setShowDeleteModal(true);
-        setTodoListItemStatus("warning");
-    };
-
-    const onClickKebabMenu = (todo:  TodoType) => {
-        setActiveListItemId(todo.id);
-        setTodoListItemStatus("select");
+        setListActiveItem({ id: todo.id, status: "warning" })
+        setDeleteItemModalStatus({ toBeDeletedId: todo.id, show: true });
     };
 
     const onNotDeleteTodo = () => {
-        setShowDeleteModal(false);
-        setTodoListItemStatus("normal");
+        setDeleteItemModalStatus({ toBeDeletedId: "", show: false });
     };
 
-    const onSearch = () => {
-        alert("Redirect to Todo Search Page...");
+    const onCloseToast = () => {
+        setToastMessageStatus({ show: false, message: "" });
     };
-
-    const onSelect = () => {
-        alert("Redirect to Select Page...");
-    };
-
+    
     const onDeleteTodoHandler = () => {
-        deleteTodo(activeListItemId);
-        setActiveListItemId("");
-        setShowDeleteModal(false);
-        setToastMessage("To do deleted");
-        setShowToast(true);
+        deleteTodo(deleteItemModalStatus.toBeDeletedId);
+        setToastMessageStatus({ show: true, message: "To do deleted" })
+        setDeleteItemModalStatus({ toBeDeletedId: "", show: false });
+    };
+
+    const onClickKebabMenu = (todo:  TodoType) => {
+        setListActiveItem({ id: todo.id, status: "select" })
+    };
+
+    const onClickOutsideKebabMenu = () => {
+        setListActiveItem({ id: "", status: "normal" });
     };
 
     return (
@@ -91,15 +98,16 @@ const TodoHome = ({
             </SearchWrapper>
             <BodyWrapper>
                 { 
-                    isEmpty ? 
-                        (<NoTodoWrapper><NoTodo>To do list increases productivity.</NoTodo></NoTodoWrapper>)
+                    todos.length === 0 ? 
+                        (<NoTodoWrapper><NoTodo isShowButton onAddTodo={onAddTodo}>To do list increases productivity.</NoTodo></NoTodoWrapper>)
                         : <TodoList 
                                 todos={todos} 
-                                activeId={activeListItemId}
+                                activeId={activeListItem.id}
                                 onToBeDeleteTodo={onToBeDeleteTodo} 
                                 onUpdateTodo={onUpdateTodo} 
-                                status={todoListItemStatus} 
+                                status={activeListItem.status} 
                                 onClickKebabMenu={onClickKebabMenu}
+                                onClickOutsideKebabMenu={onClickOutsideKebabMenu}
                           />
                 }
             </BodyWrapper>
@@ -112,15 +120,15 @@ const TodoHome = ({
                 />
             </FloatButtonWrapper>
             <DeleteTodoModal 
-                isShow={isShowDeleteModal} 
+                isShow={deleteItemModalStatus.show} 
                 onNotDeleteTodo={onNotDeleteTodo}
                 onDeleteTodo={onDeleteTodoHandler}
             />
             <Toast 
-                message={toastMessage} 
+                message={toastMessageStaus.message} 
                 duration={1} 
-                show={showToast} 
-                onClose={() => setShowToast(false)} 
+                show={toastMessageStaus.show} 
+                onClose={onCloseToast} 
             />
         </Wrapper>
     );

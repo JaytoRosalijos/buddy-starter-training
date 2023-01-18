@@ -8,14 +8,20 @@ interface ITodoContext {
     addTodo: (title: string) => void;
     updateTodo: (todo: TodoType) => void;
     deleteTodo: (id: string) => void;
+    action: GlobalAction;
+    setGlobalAction: (action: GlobalAction) => void;
 }
 
 const defaultState: ITodoContext = {
-  todos: [],
-  addTodo: () => {},
-  updateTodo: () => {},
-  deleteTodo: () => {},
+    todos: [],
+    addTodo: () => {},
+    updateTodo: () => {},
+    deleteTodo: () => {},
+    action: "",
+    setGlobalAction: () => {},
 };
+
+export type GlobalAction = "update" | "delete" | "add" | "complete" | "";
 
 export type TodoProviderProps = {
     children: React.ReactNode;
@@ -26,6 +32,7 @@ export const TodoContext = createContext(defaultState);
 export const TodoProvider = ({ children }: TodoProviderProps) => {
     const todoId = useId()
     const [todos, setTodos] = useState<TodoType[]>([...MockTodos]);
+    const [action, setGlobalAction] = useState<GlobalAction>("");
 
     const addTodo = (title: string) => {
         setTodos([ ...todos, { title, id: todoId, isDone: false, } ]);
@@ -44,7 +51,14 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
     }
 
     return (
-        <TodoContext.Provider value={{ todos, addTodo, updateTodo, deleteTodo }}>
+        <TodoContext.Provider value={{ 
+            todos, 
+            addTodo, 
+            updateTodo,
+            deleteTodo, 
+            action, 
+            setGlobalAction, 
+        }}>
             { children }
         </TodoContext.Provider>
     );

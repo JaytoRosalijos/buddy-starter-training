@@ -26,4 +26,14 @@ export const todos: TodoType[] = [
         title: "List Title 5",
         isDone: false,
     },
+    {
+        id: "6",
+        title: "List Title 6",
+        isDone: true,
+    },
+    {
+        id: "7",
+        title: "List Title 7",
+        isDone: true,
+    },
 ];

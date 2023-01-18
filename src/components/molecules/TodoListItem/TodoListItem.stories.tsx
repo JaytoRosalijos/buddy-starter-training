@@ -15,22 +15,19 @@ const Template: ComponentStory<typeof TodoListItem> = (args) => <TodoListItem  {
 export const Normal = Template.bind({});
 Normal.args = {
     status: "normal",
-}
+};
 
 export const Selected = Template.bind({});
 Selected.args = {
     status: "select",
-    active: true,
 };
 
 export const Delete = Template.bind({});
 Delete.args = {
-    ...Selected.args,
     status: "warning",
 };
 
 export const CrushOut = Template.bind({});
 CrushOut.args = {
-    ...Selected.args,
     status: "crushout",
 };

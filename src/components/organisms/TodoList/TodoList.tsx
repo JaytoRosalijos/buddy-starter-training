@@ -12,7 +12,7 @@ export type TodoListProps = {
     onToBeDeleteTodo: (todo: TodoType) => void;
     onUpdateTodo: (todo: TodoType) => void;
     onClickKebabMenu: (todo: TodoType) => void;
-    onClickOutsideKebabMenu?: () => void;
+    onClickOutsideKebabMenu: () => void;
 };
 
 const TodoList = ({ 
@@ -24,7 +24,15 @@ const TodoList = ({
         onClickKebabMenu,
         onClickOutsideKebabMenu,
     }: TodoListProps) => {
-    
+
+    const determineTodoStatus = (todo: TodoType): TodoListItemStatus => {
+        if(todo.isDone)
+            return "crushout";
+        if(todo.id === activeId)
+            return status;
+        return "normal"; 
+    };
+
     return (
         <Wrapper>
             { 
@@ -32,11 +40,13 @@ const TodoList = ({
                     <TodoListItem 
                         key={todo.id} 
                         title={todo.title} 
-                        status={ activeId === todo.id ? status : "normal" } 
+                        status={determineTodoStatus(todo)} 
                         onClickKebabMenu={() => onClickKebabMenu(todo)} 
                         onClickOutsideKebabMenu={onClickOutsideKebabMenu}
                         onDeleteTodo={()=> onToBeDeleteTodo(todo)}
                         onUpdateTodo={() => onUpdateTodo(todo)}
+                        isActiveKebab={todo.id === activeId}
+                        showKebab={!todo.isDone}
                     />   
                 )
             }
