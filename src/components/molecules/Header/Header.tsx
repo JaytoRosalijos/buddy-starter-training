@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Button } from '../../atoms/Button';
-import { ReactComponent as LogoutIcon } from './icons/logout.svg';
-import { ReactComponent as ArrowRightIcon } from './icons/arrow-right.svg';
+import { ReactComponent as LogoutIcon } from '../../atoms/Icons/logout.svg';
+import { ReactComponent as ArrowRightIcon } from '../../atoms/Icons/arrow-right.svg';
 import { 
     Wrapper, 
     TitleWrapper, 

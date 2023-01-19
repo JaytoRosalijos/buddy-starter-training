@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Header } from '../../molecules/Header';
 import { TextInput } from '../../atoms/TextInput';
-import { ReactComponent as SearchIcon } from '../TodoHome/icons/search.svg';
+import { ReactComponent as SearchIcon } from '../../atoms/Icons/search.svg';
 import { Toast } from '../../atoms/Toast';
 
 import {

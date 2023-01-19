@@ -18,7 +18,7 @@ const TodoSelectList = ({ todos }: TodoProps) => {
         <Wrapper>
             { 
                 todos.map(({ id, title }) => 
-                    <TodoSelectItem key={id} title={title} />   
+                    <TodoSelectItem key={id} title={title}  />   
                 )
             }
         </Wrapper>

@@ -22,7 +22,8 @@ const DeleteTodoModal = ({isShow, onClose, onDeleteTodo, onNotDeleteTodo, }: Sel
             <StyledGlobalDrawer />
             <StyledDrawer
                 placement="bottom" 
-                mask={false} 
+                mask={true} 
+                maskStyle={{ background: "none" }}
                 closable={false}
                 onClose={onClose} 
                 open={isShow}

@@ -1,34 +1,43 @@
 import React from 'react';
-import { MoreOutlined } from '@ant-design/icons';
 
-import { Button } from '../../atoms/Button';
-import {
-    Wrapper,
-} from './styles';
+import { KebabPopMenu } from '../../atoms/KebabPopMenu';
+import { Wrapper, } from './styles';
 
+export type TodoListItemStatus = "normal" | "select" | "warning" | "crushout";
 
 export type TodoListItemProps = {
-    title?: string;
-    status?: "normal" | "select" | "warning" | "crushout";
-    active?: boolean;
-    onClick?: (e: any) => void;
+    title: string;
+    status: TodoListItemStatus;
+    isActiveKebab: boolean;
+    showKebab: boolean;
+    onClickKebabMenu: () => void;
+    onClickOutsideKebabMenu: () => void;
+    onDeleteTodo: () => void;
+    onUpdateTodo: () => void;
 };
 
 const TodoListItem = ({
         title, 
         status = "normal", 
-        onClick, 
-        active,
+        onUpdateTodo,
+        onClickKebabMenu, 
+        onDeleteTodo,
+        isActiveKebab,
+        showKebab,
+        onClickOutsideKebabMenu,
      }:TodoListItemProps) => {
+    
     return (
-        <Wrapper status={status} active={active}>
+        <Wrapper status={status} >
             <div>{ title }</div>
             {
-                status !== "crushout" && (
-                    <Button 
-                        icon={<MoreOutlined />} 
-                        variance="text" 
-                        onClick={onClick}
+                showKebab && (
+                    <KebabPopMenu 
+                        onOpenMenu={onClickKebabMenu} 
+                        onCloseMenu={onClickOutsideKebabMenu} 
+                        onDelete={onDeleteTodo}
+                        onUpdate={onUpdateTodo}
+                        isActiveKebab={isActiveKebab}
                     />
                 )
             }
