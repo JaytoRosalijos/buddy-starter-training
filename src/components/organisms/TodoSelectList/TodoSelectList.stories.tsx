@@ -17,6 +17,7 @@ Default.args = {
     selectedIds: [],
 };
 
+
 export const SelectAll = Template.bind({});
 SelectAll.args = {
     ...Default.args,
