@@ -3,7 +3,6 @@ import React from 'react';
 import { StyledCheckbox, TitleWrapper, } from './styles';
 
 export type TodoSelectItemProps = {
-    key?: string | number,
     name?: string,
     title?: string,
     isChecked?: boolean;
@@ -12,13 +11,12 @@ export type TodoSelectItemProps = {
 
 const TodoSelectItem = ({ 
         name, 
-        key, 
         title, 
         isChecked, 
         onChange, 
     }: TodoSelectItemProps) => {
     return (
-        <div key={key}>
+        <div>
             <StyledCheckbox name={name} checked={isChecked} onChange={onChange}>
                 <TitleWrapper>
                     { title } 
