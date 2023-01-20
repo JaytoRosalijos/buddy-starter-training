@@ -3,6 +3,7 @@ import { Breakpoints } from '../../../themes/';
 
 export const Wrapper = styled.div`
     padding-left: 10px;
+    padding-bottom: 60px;
     width: 500px;
     margin: 18px auto;
 

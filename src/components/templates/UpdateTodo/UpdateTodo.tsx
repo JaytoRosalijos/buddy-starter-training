@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Formik } from 'formik';
 
 import { Header } from '../../molecules/Header';
 import { TextInput } from '../../atoms/TextInput';
 import { ReactComponent as SearchIcon } from '../../atoms/Icons/search.svg';
+import { UpdateTodoSchema } from './validations';
 
 import {
     Wrapper,
@@ -10,30 +12,45 @@ import {
 } from './styles';
 import { TodoType } from '../../../data';
 
+
 export type UpdateTodoProps = {
     todo: TodoType,
-    onUpdateTodo: (e: TodoType) => void;
+    onUpdateTodo: (id: string, title: string) => void;
     onBack: () => void;
 };
 
 const UpdateTodo = ({ todo, onUpdateTodo, onBack }: UpdateTodoProps) => {
-    const [updatedTodo, setUpdatedTodo] = useState<TodoType>({ ...todo });
-
-    const onPressEnterHandler = () => {
-        onUpdateTodo(updatedTodo);
-    };
-
     return (
         <Wrapper>
             <Header title="Update to do" type="navigation" onBack={onBack} />
             <SearchWrapper>
-                <TextInput 
-                    value={updatedTodo.title}
-                    prefix={<SearchIcon />} 
-                    onChange={e => setUpdatedTodo({ ...todo, title: e.currentTarget.value })} 
-                    onPressEnter={onPressEnterHandler} 
-                    allowClear 
-                />
+                <Formik
+                    initialValues={{ title: todo.title }}
+                    onSubmit={({ title },) => onUpdateTodo(todo.id, title)}
+                    validationSchema={UpdateTodoSchema}
+                >
+                    {
+                        ({ 
+                            values, 
+                            errors, 
+                            handleChange, 
+                            handleSubmit, 
+                        }) => (
+                            <form onSubmit={handleSubmit}>
+                                <TextInput 
+                                    value={values.title}
+                                    prefix={<SearchIcon />} 
+                                    onChange={handleChange("title")} 
+                                    allowClear 
+                                    maxLength={50}
+                                />
+                                {
+                                    errors.title && <div>{errors.title}</div>
+                                }
+                            </form>
+                        )
+                    }
+                </Formik>
             </SearchWrapper>
         </Wrapper>
     );

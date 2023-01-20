@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { NoTodo } from '../../molecules/NoTodo';
 import { Header } from '../../molecules/Header';
@@ -20,6 +20,7 @@ import {
 } from './styles';
 import { TodoListItemStatus } from '../../molecules/TodoListItem/TodoListItem';
 import { Toast } from '../../atoms/Toast';
+import { GlobalAction } from '../../../context/TodoContext';
 
 export type TodoHomeProps = {
     todos?: TodoType[];
@@ -29,6 +30,8 @@ export type TodoHomeProps = {
     onUpdateTodo: (todo: TodoType) => void;
     onSearch: () => void;
     onSelect: () => void;
+    globalAction: GlobalAction,
+    clearGlobalAction: () => void;
 };
 
 type ListActiveItem = {
@@ -54,10 +57,23 @@ const TodoHome = ({
         onUpdateTodo,
         onSearch,
         onSelect,
+        globalAction,
+        clearGlobalAction,
     }: TodoHomeProps) => {
     const [deleteItemModalStatus, setDeleteItemModalStatus] = useState<DeleteItemModalStatus>({ toBeDeletedId: "", show: false })
     const [activeListItem, setListActiveItem] = useState<ListActiveItem>({ id: "", status: "normal" });
-    const [toastMessageStaus, setToastMessageStatus] = useState<ToastMessageStatus>({ show: false, message: "" });
+    const [toastMessageStatus, setToastMessageStatus] = useState<ToastMessageStatus>({ show: false, message: "" });
+    
+    useEffect(() => {
+        const toastMessages  = {
+            update: "To do updated",
+            complete: "To do completed",
+            delete: "To do deleted",
+        };
+        if ([ "update", "complete", "delete" ].includes(globalAction)) {
+            setToastMessageStatus({ show: true, message: toastMessages[String(globalAction)] })
+        }
+    }, [globalAction]);
 
     const onToBeDeleteTodo = (todo: TodoType) => {
         setListActiveItem({ id: todo.id, status: "warning" })
@@ -70,11 +86,11 @@ const TodoHome = ({
 
     const onCloseToast = () => {
         setToastMessageStatus({ show: false, message: "" });
+        clearGlobalAction();
     };
     
     const onDeleteTodoHandler = () => {
         deleteTodo(deleteItemModalStatus.toBeDeletedId);
-        setToastMessageStatus({ show: true, message: "To do deleted" })
         setDeleteItemModalStatus({ toBeDeletedId: "", show: false });
     };
 
@@ -125,9 +141,9 @@ const TodoHome = ({
                 onDeleteTodo={onDeleteTodoHandler}
             />
             <Toast 
-                message={toastMessageStaus.message} 
+                message={toastMessageStatus.message} 
                 duration={1} 
-                show={toastMessageStaus.show} 
+                show={toastMessageStatus.show} 
                 onClose={onCloseToast} 
             />
         </Wrapper>

@@ -13,6 +13,10 @@ export const Wrapper = styled.div<{ status: TodoListItemStatus }>`
     }
 `;
 
+export const TitleWrapper = styled.div`
+    word-break: break-all; 
+`;
+
 const Normal = `
     color: ${Palette.gray1};
 `;

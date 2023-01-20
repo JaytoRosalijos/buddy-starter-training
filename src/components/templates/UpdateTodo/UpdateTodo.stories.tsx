@@ -2,10 +2,9 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { UpdateTodo } from '.';
-import { TodoType } from '../../../data';
 
-const updateTodo = (todo: TodoType) => {
-    alert(`Update Todo: ${todo.title}`);
+const updateTodo = (id: string, title: string) => {
+    alert(`Update Todo Title with id ${id}: ${title}`);
 };
 
 const goBack =  () => {

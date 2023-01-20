@@ -1,27 +1,33 @@
 import React, { useState, createContext } from 'react';
 import { TodoType } from '../data';
-import { useId } from 'react';
 import { todos as MockTodos } from '../data';
+import { v4 as uuid } from 'uuid';
 
 interface ITodoContext {
     todos: TodoType[];
+    sortedTodos: TodoType[];
     addTodo: (title: string) => void;
     updateTodo: (todo: TodoType) => void;
     deleteTodo: (id: string) => void;
-    action: GlobalAction;
-    setGlobalAction: (action: GlobalAction) => void;
+    globalAction: GlobalAction;
+    clearGlobalAction: () => void;
+    getTodo: (id: string) => TodoType | undefined;
 }
 
 const defaultState: ITodoContext = {
     todos: [],
+    sortedTodos: [],
     addTodo: () => {},
     updateTodo: () => {},
     deleteTodo: () => {},
-    action: "",
-    setGlobalAction: () => {},
+    globalAction: "",
+    clearGlobalAction: () => {},
+    getTodo: () => ({ id: "", title: ""}),
 };
 
 export type GlobalAction = "update" | "delete" | "add" | "complete" | "";
+
+type TodosTuple = { normal: TodoType[], completed: TodoType[] };
 
 export type TodoProviderProps = {
     children: React.ReactNode;
@@ -30,13 +36,22 @@ export type TodoProviderProps = {
 export const TodoContext = createContext(defaultState);
 
 export const TodoProvider = ({ children }: TodoProviderProps) => {
-    const todoId = useId()
     const [todos, setTodos] = useState<TodoType[]>([...MockTodos]);
-    const [action, setGlobalAction] = useState<GlobalAction>("");
+    const [globalAction, setGlobalAction] = useState<GlobalAction>("");
+
+    const sortedTodosTuple: TodosTuple= todos.reduce((todosTuple: TodosTuple, todo: TodoType) => {
+        if (todo.isDone)
+            return { ...todosTuple, completed: [...todosTuple.completed, todo] }
+        return { ...todosTuple, normal: [...todosTuple.normal, todo] }
+    }, { normal: [], completed: [] });
+
+    const sortedTodos = [ ...sortedTodosTuple.normal, ...sortedTodosTuple.completed ];
 
     const addTodo = (title: string) => {
-        setTodos([ ...todos, { title, id: todoId, isDone: false, } ]);
-    }
+        const id = uuid().slice(0,8);
+        setTodos([ ...todos, { title, id: id, isDone: false, } ]);
+        setGlobalAction("add");
+    };
 
     const updateTodo = (todo: TodoType) => {
         setTodos(todos.map(_todo => {
@@ -44,20 +59,30 @@ export const TodoProvider = ({ children }: TodoProviderProps) => {
                 return { ...todo };
             return _todo;
         }));
-    }
+        setGlobalAction("update");
+    };
 
     const deleteTodo = (id: string) => {
         setTodos(todos.filter(_todo => _todo.id !== id));
-    }
+        setGlobalAction("delete");
+    };
+
+    const clearGlobalAction = () => {
+        setGlobalAction("");
+    };
+
+    const getTodo = (id: string) => todos.find(todo => todo.id === id);
 
     return (
         <TodoContext.Provider value={{ 
             todos, 
+            sortedTodos,
             addTodo, 
             updateTodo,
             deleteTodo, 
-            action, 
-            setGlobalAction, 
+            globalAction, 
+            clearGlobalAction, 
+            getTodo,
         }}>
             { children }
         </TodoContext.Provider>

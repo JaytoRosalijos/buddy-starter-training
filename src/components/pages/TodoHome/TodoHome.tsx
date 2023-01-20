@@ -1,17 +1,19 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import { TodoHome as TodoHomeTemplate } from '../../templates/TodoHome';
 import { useTodoContext } from '../../../hooks';
 import { TodoType } from '../../../data';
 
 const TodoHome = () => {
-    const { todos, deleteTodo, } = useTodoContext();
-
+    const navigate = useNavigate();
+    const { sortedTodos, deleteTodo, globalAction, clearGlobalAction, } = useTodoContext();
+    
     const onAddTodo = () => {
-        alert("Redirect to Add Todo Page: ");
+        navigate("/todo/add");
     };
 
     const onUpdateTodo = (todo: TodoType) => {
-        alert(`Title ${todo.title} Redirect to Todo Update Page...`);
+        navigate("/todo/" + todo.id);
     };
 
     const onSearch = () => {
@@ -29,13 +31,15 @@ const TodoHome = () => {
     return (
         <div>
             <TodoHomeTemplate 
-                todos={todos} 
+                todos={sortedTodos} 
                 deleteTodo={deleteTodo}
                 onAddTodo={onAddTodo}
                 onUpdateTodo={onUpdateTodo}
                 onSearch={onSearch}
                 onSelect={onSelect}
                 onLogout={onLogout}
+                globalAction={globalAction}
+                clearGlobalAction={clearGlobalAction}
             />
         </div>
     );
