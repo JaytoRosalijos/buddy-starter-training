@@ -1,7 +1,10 @@
 import React from 'react';
 
 import { KebabPopMenu } from '../../atoms/KebabPopMenu';
-import { Wrapper, } from './styles';
+import { 
+    Wrapper, 
+    TitleWrapper,
+} from './styles';
 
 export type TodoListItemStatus = "normal" | "select" | "warning" | "crushout";
 
@@ -29,16 +32,18 @@ const TodoListItem = ({
     
     return (
         <Wrapper status={status} >
-            <div>{ title }</div>
+            <TitleWrapper>{ title }</TitleWrapper>
             {
                 showKebab && (
-                    <KebabPopMenu 
-                        onOpenMenu={onClickKebabMenu} 
-                        onCloseMenu={onClickOutsideKebabMenu} 
-                        onDelete={onDeleteTodo}
-                        onUpdate={onUpdateTodo}
-                        isActiveKebab={isActiveKebab}
-                    />
+                    <div>
+                        <KebabPopMenu 
+                            onOpenMenu={onClickKebabMenu} 
+                            onCloseMenu={onClickOutsideKebabMenu} 
+                            onDelete={onDeleteTodo}
+                            onUpdate={onUpdateTodo}
+                            isActiveKebab={isActiveKebab}
+                        />
+                    </div>
                 )
             }
         </Wrapper>

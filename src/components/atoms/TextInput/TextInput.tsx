@@ -11,6 +11,7 @@ export type TextInputProps = {
     value?: string;
     type?: string;
     title?: string;
+    maxLength?: number;
     placeholder?: string;
     prefix?: React.ReactNode;
     onChange?: (e: any) => void;
@@ -23,6 +24,7 @@ const TextInput = ({
         value, 
         type, 
         title, 
+        maxLength,
         placeholder,
         prefix, 
         onChange, 
@@ -40,6 +42,7 @@ const TextInput = ({
                 prefix={prefix}
                 onChange={onChange}
                 onPressEnter={onPressEnter}
+                maxLength={maxLength}
             />
         </div>
     );
