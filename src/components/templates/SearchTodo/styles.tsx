@@ -30,6 +30,11 @@ export const NoTodoWrapper = styled.div`
     margin-top: 100px;
 `;
 
+export const TodoSelectListWrapper = styled.div`
+    padding: 2px 8px;
+`;
+
 export const CenterWrapper = styled.p`
     text-align: center;
+    margin-bottom: 8px;
 `;

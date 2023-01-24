@@ -9,6 +9,7 @@ import {
     SearchWrapper,
     NoTodoWrapper,
     CenterWrapper,
+    TodoSelectListWrapper,
 } from './styles';
 import { TodoSelectList } from '../../organisms/TodoSelectList';
 import { SelectModal } from '../../molecules/SelectModal';
@@ -63,7 +64,7 @@ const SearchTodo = ({
 
     return (
         <Wrapper>
-            <Header title="Search To do" type="navigation" onBack={onBack} />
+            <Header title="Search to do" type="navigation" onBack={onBack} />
             <SearchWrapper>
                 <TextInput 
                     prefix={<SearchIcon />} 
@@ -82,11 +83,15 @@ const SearchTodo = ({
                             </NoTodo>
                         </NoTodoWrapper>
                     ) :
-                    <TodoSelectList 
-                        todos={filteredTodos} 
-                        onSelectedTodo={onSelectedTodoHandler} 
-                        selectedIds={selectedTodoIds}
-                    />
+                    (
+                        <TodoSelectListWrapper>
+                            <TodoSelectList 
+                                todos={filteredTodos} 
+                                onSelectedTodo={onSelectedTodoHandler} 
+                                selectedIds={selectedTodoIds}
+                            />
+                        </TodoSelectListWrapper>
+                    )
                 }
             </SelectListWrapper>
             <SelectModal 

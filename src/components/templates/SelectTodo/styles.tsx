@@ -20,3 +20,7 @@ export const SelectListWrapper = styled.div`
 export const NoTodoWrapper = styled.div`
     margin-top: 100px;
 `;
+
+export const TodoSelectListWrapper = styled.div`
+    padding: 0px 8px;
+`;
