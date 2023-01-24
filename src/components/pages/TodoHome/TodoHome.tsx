@@ -1,12 +1,17 @@
-import React from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { TodoHome as TodoHomeTemplate } from '../../templates/TodoHome';
-import { useTodoContext } from '../../../hooks';
+import { useTodoContext } from '../../../context/';
 import { TodoType } from '../../../data';
 
 const TodoHome = () => {
+    const { state, dispatch } = useTodoContext();
     const navigate = useNavigate();
-    const { sortedTodos, deleteTodo, globalAction, clearGlobalAction, } = useTodoContext();
+
+    useEffect(() => {
+        dispatch({ type: "SORT_TODOS_BY_COMPLETED" });
+    }, [dispatch]);
     
     const onAddTodo = () => {
         navigate("/todo/add");
@@ -17,29 +22,37 @@ const TodoHome = () => {
     };
 
     const onSearch = () => {
-        alert("Redirect to Todo Search Page...");
+        navigate("/todo/search");
     };
 
     const onSelect = () => {
-        alert("Redirect to Select Page...");
+        navigate("/todo/select");
     };
 
     const onLogout = () => {
         alert("Redirect to Logout Page...");
     };
+
+    const onDeleteTodoHandler = (id: string) => {
+        dispatch({ type: "DELETE", id });
+    };
+
+    const onClearGlobalActionHandler = () => {
+        dispatch({ type: "CLEAR_GLOBAL_ACTION" });
+    };
     
     return (
         <div>
             <TodoHomeTemplate 
-                todos={sortedTodos} 
-                deleteTodo={deleteTodo}
+                todos={state.todos} 
+                deleteTodo={onDeleteTodoHandler}
                 onAddTodo={onAddTodo}
                 onUpdateTodo={onUpdateTodo}
                 onSearch={onSearch}
                 onSelect={onSelect}
                 onLogout={onLogout}
-                globalAction={globalAction}
-                clearGlobalAction={clearGlobalAction}
+                globalAction={state.latestGlobalAction}
+                clearGlobalAction={onClearGlobalActionHandler}
             />
         </div>
     );

@@ -11,23 +11,23 @@ export type TodoListItemStatus = "normal" | "select" | "warning" | "crushout";
 export type TodoListItemProps = {
     title: string;
     status: TodoListItemStatus;
-    isActiveKebab: boolean;
+    isActiveKebab?: boolean;
     showKebab: boolean;
-    onClickKebabMenu: () => void;
-    onClickOutsideKebabMenu: () => void;
-    onDeleteTodo: () => void;
-    onUpdateTodo: () => void;
+    onClickKebabMenu?: () => void;
+    onClickOutsideKebabMenu?: () => void;
+    onDeleteTodo?: () => void;
+    onUpdateTodo?: () => void;
 };
 
 const TodoListItem = ({
         title, 
         status = "normal", 
-        onUpdateTodo,
-        onClickKebabMenu, 
-        onDeleteTodo,
-        isActiveKebab,
+        onUpdateTodo= () => {},
+        onClickKebabMenu = () => {}, 
+        onDeleteTodo = () => {},
+        isActiveKebab = false,
         showKebab,
-        onClickOutsideKebabMenu,
+        onClickOutsideKebabMenu = () => {},
      }:TodoListItemProps) => {
     
     return (

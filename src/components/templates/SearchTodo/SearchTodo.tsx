@@ -50,7 +50,7 @@ const SearchTodo = ({
     };
 
     const onSelectAllHandler = () => {
-        setSelectedTodoIds(filteredTodos.map(todo => todo.id));
+        setSelectedTodoIds(filteredTodos.filter(todo => !todo.isDone).map(todo => todo.id));
     };
 
     const onCompleteSelectedHandler = () => {

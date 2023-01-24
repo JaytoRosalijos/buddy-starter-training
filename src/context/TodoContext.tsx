@@ -1,90 +1,110 @@
-import React, { useState, createContext } from 'react';
-import { TodoType } from '../data';
-import { todos as MockTodos } from '../data';
+import { createContext, useContext, useReducer } from "react";
 import { v4 as uuid } from 'uuid';
 
-interface ITodoContext {
-    todos: TodoType[];
-    sortedTodos: TodoType[];
-    addTodo: (title: string) => void;
-    updateTodo: (todo: TodoType) => void;
-    deleteTodo: (id: string) => void;
-    globalAction: GlobalAction;
-    clearGlobalAction: () => void;
-    getTodo: (id: string) => TodoType | undefined;
-}
-
-const defaultState: ITodoContext = {
-    todos: [],
-    sortedTodos: [],
-    addTodo: () => {},
-    updateTodo: () => {},
-    deleteTodo: () => {},
-    globalAction: "",
-    clearGlobalAction: () => {},
-    getTodo: () => ({ id: "", title: ""}),
-};
+import { TodoType } from '../data';
+import { todos as MockTodos } from '../data/Todos'
 
 export type GlobalAction = "update" | "delete" | "add" | "complete" | "";
 
+interface ITodoContextState {
+    todos: TodoType[];
+    latestGlobalAction: GlobalAction;
+}
+
+type TodoActionType =
+ | { type: "ADD", title: string }
+ | { type: "UPDATE", todo: TodoType }
+ | { type: "DELETE", id: string }
+ | { type: "DELETE_SELECTED", ids: string[] }
+ | { type: "COMPLETE", id: string }
+ | { type: "COMPLETE_SELECTED", ids: string[] }
+ | { type: "CLEAR_GLOBAL_ACTION" }
+ | { type: "SORT_TODOS_BY_COMPLETED" };
+
+interface TodoContextProps {
+    state: ITodoContextState;
+    dispatch: React.Dispatch<TodoActionType>;
+}
+
 type TodosTuple = { normal: TodoType[], completed: TodoType[] };
 
-export type TodoProviderProps = {
-    children: React.ReactNode;
+const initialState: ITodoContextState = {
+    todos: [...MockTodos],
+    latestGlobalAction: "",
 };
 
-export const TodoContext = createContext(defaultState);
+export const TodoContext = createContext<TodoContextProps>({} as TodoContextProps);
 
-export const TodoProvider = ({ children }: TodoProviderProps) => {
-    const [todos, setTodos] = useState<TodoType[]>([...MockTodos]);
-    const [globalAction, setGlobalAction] = useState<GlobalAction>("");
+export const useTodoContext = () => useContext(TodoContext);
 
-    const sortedTodosTuple: TodosTuple= todos.reduce((todosTuple: TodosTuple, todo: TodoType) => {
-        if (todo.isDone)
-            return { ...todosTuple, completed: [...todosTuple.completed, todo] }
-        return { ...todosTuple, normal: [...todosTuple.normal, todo] }
-    }, { normal: [], completed: [] });
-
-    const sortedTodos = [ ...sortedTodosTuple.normal, ...sortedTodosTuple.completed ];
-
-    const addTodo = (title: string) => {
-        const id = uuid().slice(0,8);
-        setTodos([ ...todos, { title, id: id, isDone: false, } ]);
-        setGlobalAction("add");
-    };
-
-    const updateTodo = (todo: TodoType) => {
-        setTodos(todos.map(_todo => {
-            if (_todo.id === todo.id) 
-                return { ...todo };
-            return _todo;
-        }));
-        setGlobalAction("update");
-    };
-
-    const deleteTodo = (id: string) => {
-        setTodos(todos.filter(_todo => _todo.id !== id));
-        setGlobalAction("delete");
-    };
-
-    const clearGlobalAction = () => {
-        setGlobalAction("");
-    };
-
-    const getTodo = (id: string) => todos.find(todo => todo.id === id);
+export const TodoProvider = ({ children }) => {
+    const [state, dispatch] = useReducer(todoReducer, initialState);
 
     return (
-        <TodoContext.Provider value={{ 
-            todos, 
-            sortedTodos,
-            addTodo, 
-            updateTodo,
-            deleteTodo, 
-            globalAction, 
-            clearGlobalAction, 
-            getTodo,
-        }}>
-            { children }
+        <TodoContext.Provider value={{ state, dispatch }}>
+            {children}
         </TodoContext.Provider>
     );
 };
+
+export const todoReducer = (state: ITodoContextState, action: TodoActionType): ITodoContextState => {
+    switch (action.type) {
+        case "ADD":
+            const todoId = uuid().slice(0,8);
+            
+            return {
+                ...state,
+                todos: [...state.todos, { id: todoId, title: action.title, isDone: false }],
+                latestGlobalAction: "add" as GlobalAction,
+            };
+        case "UPDATE":
+            return { 
+                ...state,
+                todos: state.todos.map(todo => todo.id === action.todo.id ? { ...action.todo } : todo), 
+                latestGlobalAction: "update" as GlobalAction,
+            };
+        case "DELETE":
+            return {
+                ...state,
+                todos: state.todos.filter(todo => todo.id !== action.id), 
+                latestGlobalAction: "delete" as GlobalAction,
+            };
+        case "DELETE_SELECTED":
+            return {
+                ...state,
+                todos: state.todos.filter(todo => !action.ids.includes(todo.id)), 
+                latestGlobalAction: "delete" as GlobalAction,
+            };
+        case "COMPLETE":
+            return {
+                ...state,
+                todos: state.todos.map(todo => todo.id === action.id ? { ...todo, isDone: true } : todo), 
+                latestGlobalAction: "complete" as GlobalAction,
+            };
+        case "COMPLETE_SELECTED":
+            return {
+                ...state,
+                todos: state.todos.map(todo => action.ids.includes(todo.id) ? { ...todo, isDone: true } : todo), 
+                latestGlobalAction: "complete" as GlobalAction,
+            };
+        case "CLEAR_GLOBAL_ACTION":
+            return {
+                ...state,
+                latestGlobalAction: "",
+            };
+        case "SORT_TODOS_BY_COMPLETED":
+            const { normal, completed }: TodosTuple = state.todos.reduce((todosTuple: TodosTuple, todo: TodoType) => {
+                if (todo.isDone)
+                    return { ...todosTuple, completed: [...todosTuple.completed, todo] }
+                return { ...todosTuple, normal: [...todosTuple.normal, todo] }
+            }, { normal: [], completed: [] });
+            
+            return {
+                ...state,
+                todos: [ ...normal, ...completed, ],
+            };
+        default:
+            return state;
+    }
+  }
+  
