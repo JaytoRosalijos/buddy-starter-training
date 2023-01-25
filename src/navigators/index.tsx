@@ -1,4 +1,4 @@
-import { router } from './router';
-import RootNavigator  from './RootNavigator';
+import { RootNavigator } from './RootNavigator';
+import { ProtectedRoute, AuthRoute, } from './RouteGuards';
 
-export { router, RootNavigator };
+export {  RootNavigator, ProtectedRoute, AuthRoute };

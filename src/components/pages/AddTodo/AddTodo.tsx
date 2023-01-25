@@ -10,7 +10,7 @@ const AddTodo = () => {
     const navigate = useNavigate();
     
     const onBack = () => {
-        navigate("/todo");
+        navigate("/");
     };
 
     const onAddTodoHandler = (title: string) => {

@@ -10,7 +10,7 @@ const Login = () => {
     
     const props: LoginFormProps = {
         onLogin: async (email, password) => {
-            navigate("/todo");
+            navigate("/");
         },
     };
 

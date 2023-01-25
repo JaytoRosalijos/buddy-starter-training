@@ -1,38 +1,50 @@
-import { createBrowserRouter } from 'react-router-dom';
 import { Login } from '../components/pages/Login';
 import { TodoHome } from '../components/pages/TodoHome';
 import { AddTodo } from '../components/pages/AddTodo';
 import { UpdateTodo } from '../components/pages/UpdateTodo';
 import { SelectTodo } from '../components/pages/SelectTodo';
 import { SearchTodo } from '../components/pages/SearchTodo';
- 
-// TODO: create protected route component
 
-const router = createBrowserRouter([
+type routesType = {
+    path: string;
+    component: JSX.Element;
+}[];
+
+const routes: routesType = [
     {
-        path: "/",
-        element: <Login />,
+        path: "/login",
+        component: <Login />,
     },
     {
-        path: "/todo",
-        element: <TodoHome />
+        path: "/register",
+        component: <div>Register Page</div>,
+    },
+];
+
+const privateRoutes: routesType = [
+    {
+        path: "/",
+        component: <TodoHome />,
     },
     {
         path: "/todo/add",
-        element: <AddTodo />,
+        component: <AddTodo />,
     },
     {
         path: "/todo/:id",
-        element: <UpdateTodo />,
+        component: <UpdateTodo />,
     },
     {
         path: "/todo/select",
-        element: <SelectTodo />,
+        component: <SelectTodo />,
     },
     {
         path: "/todo/search",
-        element: <SearchTodo />,
+        component: <SearchTodo />,
     },
-]);
+];
 
-export { router }
+
+export { routes, privateRoutes, };
+  
+  

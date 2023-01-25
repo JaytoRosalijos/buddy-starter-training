@@ -18,12 +18,12 @@ const UpdateTodo = () => {
     }
 
     const onBack = () => {
-        navigate("/todo");
+        navigate("/");
     };
 
     const updateTodoHandler= (id: string, title: string) => {
         dispatch({ type: "UPDATE", todo: { ...todo, title } });
-        navigate("/todo");
+        navigate("/");
     };
 
     return (
