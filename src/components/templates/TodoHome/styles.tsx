@@ -41,6 +41,10 @@ export const BodyWrapper = styled.div`
     min-height: 300px;
 `;
 
+export const TodoListWrapper = styled.div`
+    padding: 2px 8px;
+`;
+
 export const NoTodoWrapper = styled.div`
     margin-top: 100px;
 `;

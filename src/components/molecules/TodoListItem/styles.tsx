@@ -6,7 +6,6 @@ export const Wrapper = styled.div<{ status: TodoListItemStatus }>`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 14px;
 
     div {
         ${(props) => status[props.status]}
@@ -15,6 +14,7 @@ export const Wrapper = styled.div<{ status: TodoListItemStatus }>`
 
 export const TitleWrapper = styled.div`
     word-break: break-all; 
+    font-size: 14px;
 `;
 
 const Normal = `

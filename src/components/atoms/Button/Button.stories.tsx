@@ -32,6 +32,12 @@ Error.args = {
   variance: "error",
 };
 
+export const ModalButton = Template.bind({});
+ModalButton.args = {
+  variance: "primary",
+  isModalButton: true,
+};
+
 export const Text = Template.bind({});
 Text.args = {
   ...Primary.args,

@@ -17,6 +17,7 @@ import {
     NoTodoWrapper,
     FloatButtonWrapper,
     CoverWrapper,
+    TodoListWrapper,
 } from './styles';
 import { TodoListItemStatus } from '../../molecules/TodoListItem/TodoListItem';
 import { Toast } from '../../atoms/Toast';
@@ -116,15 +117,20 @@ const TodoHome = ({
                 { 
                     todos.length === 0 ? 
                         (<NoTodoWrapper><NoTodo isShowButton onAddTodo={onAddTodo}>To do list increases productivity.</NoTodo></NoTodoWrapper>)
-                        : <TodoList 
-                                todos={todos} 
-                                activeId={activeListItem.id}
-                                onToBeDeleteTodo={onToBeDeleteTodo} 
-                                onUpdateTodo={onUpdateTodo} 
-                                status={activeListItem.status} 
-                                onClickKebabMenu={onClickKebabMenu}
-                                onClickOutsideKebabMenu={onClickOutsideKebabMenu}
-                          />
+                        : 
+                        (
+                            <TodoListWrapper>
+                                <TodoList 
+                                    todos={todos} 
+                                    activeId={activeListItem.id}
+                                    onToBeDeleteTodo={onToBeDeleteTodo} 
+                                    onUpdateTodo={onUpdateTodo} 
+                                    status={activeListItem.status} 
+                                    onClickKebabMenu={onClickKebabMenu}
+                                    onClickOutsideKebabMenu={onClickOutsideKebabMenu}
+                                />
+                            </TodoListWrapper>
+                        )
                 }
             </BodyWrapper>
             <FloatButtonWrapper>

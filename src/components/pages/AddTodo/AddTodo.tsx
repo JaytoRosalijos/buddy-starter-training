@@ -1,22 +1,26 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { AddTodo as AddTodoTemplate } from "../../templates/AddTodo";
-import { useNavigate } from "react-router-dom";
-import { useTodoContext } from '../../../hooks';
+import { useTodoContext } from '../../../context/';
 
 
 const AddTodo = () => {
+    const { dispatch } = useTodoContext();
     const navigate = useNavigate();
-    const { addTodo } = useTodoContext();
     
     const onBack = () => {
         navigate("/todo");
     };
 
+    const onAddTodoHandler = (title: string) => {
+        dispatch({ type: "ADD", title });
+    };
+
     return (
         <div>
             <AddTodoTemplate 
-                onAddTodo={addTodo} 
+                onAddTodo={onAddTodoHandler} 
                 onBack={onBack} 
             />
         </div>

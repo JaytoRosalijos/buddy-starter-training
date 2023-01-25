@@ -7,6 +7,7 @@ import {
     Wrapper,
     SelectListWrapper,
     NoTodoWrapper,
+    TodoSelectListWrapper,
 } from './styles';
 import { TodoType } from '../../../data';
 import { NoTodo } from '../../molecules/NoTodo';
@@ -36,7 +37,7 @@ const SelectTodo = ({
     };
 
     const onSelectAllHandler = () => {
-        setSelectedTodoIds(todos.map(todo => todo.id));
+        setSelectedTodoIds(todos.filter(todo => !todo.isDone).map(todo => todo.id));
     };
 
     const onCompleteSelectedHandler = () => {
@@ -49,16 +50,21 @@ const SelectTodo = ({
 
     return (
         <Wrapper>
-            <Header title="Select To do" type="navigation" onBack={onBack} />
+            <Header title="Select to do" type="navigation" onBack={onBack} />
             <SelectListWrapper>
                 {
                      todos.length === 0 ? 
                      (<NoTodoWrapper><NoTodo isShowButton onAddTodo={onAddTodo}>No to do yet</NoTodo></NoTodoWrapper>)
-                     : <TodoSelectList 
-                            todos={todos} 
-                            onSelectedTodo={onSelectedTodoHandler} 
-                            selectedIds={selectedTodoIds}
-                        />
+                     : 
+                     (
+                        <TodoSelectListWrapper>
+                            <TodoSelectList 
+                                todos={todos} 
+                                onSelectedTodo={onSelectedTodoHandler} 
+                                selectedIds={selectedTodoIds}
+                            />
+                        </TodoSelectListWrapper>
+                     )
                 }
             </SelectListWrapper>
             <SelectModal 

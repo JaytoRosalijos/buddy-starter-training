@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { StyledCheckbox, TitleWrapper, } from './styles';
+import { 
+    StyledCheckbox, 
+    TitleWrapper, 
+    TodoSelectItemGlobalStyle, 
+} from './styles';
 
 export type TodoSelectItemProps = {
     name?: string,
@@ -17,6 +21,7 @@ const TodoSelectItem = ({
     }: TodoSelectItemProps) => {
     return (
         <div>
+            <TodoSelectItemGlobalStyle />
             <StyledCheckbox name={name} checked={isChecked} onChange={onChange}>
                 <TitleWrapper>
                     { title } 

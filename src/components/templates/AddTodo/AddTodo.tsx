@@ -28,7 +28,7 @@ const AddTodo = ({ onAddTodo, onBack, }: AddTodoProps) => {
 
     return (
         <Wrapper>
-            <Header title="Add To do" type="navigation" onBack={onBack} />
+            <Header title="Add to do" type="navigation" onBack={onBack} />
             <SearchWrapper>
                 <Formik
                     initialValues={{ title: "" }}
