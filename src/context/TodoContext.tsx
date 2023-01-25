@@ -26,8 +26,6 @@ interface TodoContextProps {
     dispatch: React.Dispatch<TodoActionType>;
 }
 
-type TodosTuple = { normal: TodoType[], completed: TodoType[] };
-
 const initialState: ITodoContextState = {
     todos: [...MockTodos],
     latestGlobalAction: "",
@@ -93,15 +91,9 @@ export const todoReducer = (state: ITodoContextState, action: TodoActionType): I
                 latestGlobalAction: "",
             };
         case "SORT_TODOS_BY_COMPLETED":
-            const { normal, completed }: TodosTuple = state.todos.reduce((todosTuple: TodosTuple, todo: TodoType) => {
-                if (todo.isDone)
-                    return { ...todosTuple, completed: [...todosTuple.completed, todo] }
-                return { ...todosTuple, normal: [...todosTuple.normal, todo] }
-            }, { normal: [], completed: [] });
-            
             return {
                 ...state,
-                todos: [ ...normal, ...completed, ],
+                todos: [...state.todos].sort((a, b) =>  (+ a.isDone) - (+ b.isDone)),
             };
         default:
             return state;
