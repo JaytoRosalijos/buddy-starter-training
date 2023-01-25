@@ -71,9 +71,8 @@ const TodoHome = ({
             complete: "To do completed",
             delete: "To do deleted",
         };
-        if ([ "update", "complete", "delete" ].includes(globalAction)) {
-            setToastMessageStatus({ show: true, message: toastMessages[String(globalAction)] })
-        }
+        if ([ "update", "complete", "delete" ].includes(globalAction))
+            setToastMessageStatus({ show: true, message: toastMessages[String(globalAction)] });
     }, [globalAction]);
 
     const onToBeDeleteTodo = (todo: TodoType) => {
@@ -83,6 +82,7 @@ const TodoHome = ({
 
     const onNotDeleteTodo = () => {
         setDeleteItemModalStatus({ toBeDeletedId: "", show: false });
+        setListActiveItem({ id: "", status: "normal" });
     };
 
     const onCloseToast = () => {
@@ -100,7 +100,8 @@ const TodoHome = ({
     };
 
     const onClickOutsideKebabMenu = () => {
-        setListActiveItem({ id: "", status: "normal" });
+        if (!deleteItemModalStatus.show)
+            setListActiveItem({ id: "", status: "normal" });
     };
 
     return (
@@ -116,7 +117,15 @@ const TodoHome = ({
             <BodyWrapper>
                 { 
                     todos.length === 0 ? 
-                        (<NoTodoWrapper><NoTodo isShowButton onAddTodo={onAddTodo}>To do list increases productivity.</NoTodo></NoTodoWrapper>)
+                        (
+                            <NoTodoWrapper>
+                                <NoTodo 
+                                    isShowButton 
+                                    onAddTodo={onAddTodo}
+                                >
+                                    To do list increases productivity.
+                                </NoTodo>
+                            </NoTodoWrapper>)
                         : 
                         (
                             <TodoListWrapper>

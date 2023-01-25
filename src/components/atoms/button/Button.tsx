@@ -10,7 +10,7 @@ export type ButtonProps = {
     disabled?: boolean;
     children?: React.ReactNode;
     htmlType?: "submit" | "reset" | "button";
-    isModalButton?: boolean;
+    $isModalButton?: boolean;
     onClick?: (e: any) => void;
 }
 
@@ -23,7 +23,7 @@ const Button = ({
         disabled, 
         children, 
         onClick,
-        isModalButton,
+        $isModalButton,
         htmlType,
     }: ButtonProps) => {
     return (
@@ -34,7 +34,7 @@ const Button = ({
             size={size}
             icon={icon}
             htmlType={htmlType}
-            isModalButton={isModalButton}
+            $isModalButton={$isModalButton}
             disabled={disabled}
             onClick={onClick}
         >

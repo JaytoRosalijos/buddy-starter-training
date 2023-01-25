@@ -31,8 +31,8 @@ const DeleteTodoModal = ({isShow, onClose, onDeleteTodo, onNotDeleteTodo, }: Sel
             >
                 <CaptionWrapper>Delete to do?</CaptionWrapper>
                 <ButtonGroupWrapper>
-                    <Button isModalButton onClick={onNotDeleteTodo} size="large" variance="error">No</Button>
-                    <Button isModalButton onClick={onDeleteTodo} size="large" variance="primary">Yes</Button>
+                    <Button $isModalButton onClick={onNotDeleteTodo} size="large" variance="error">No</Button>
+                    <Button $isModalButton onClick={onDeleteTodo} size="large" variance="primary">Yes</Button>
                 </ButtonGroupWrapper>
             </StyledDrawer>
         </>

@@ -35,7 +35,7 @@ Error.args = {
 export const ModalButton = Template.bind({});
 ModalButton.args = {
   variance: "primary",
-  isModalButton: true,
+  $isModalButton: true,
 };
 
 export const Text = Template.bind({});
