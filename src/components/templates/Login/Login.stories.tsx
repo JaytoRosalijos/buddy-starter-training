@@ -6,13 +6,11 @@ import { Login } from '.';
 export default {
     title: "Templates/Login",
     component: Login,
+    argTypes: {
+        onLogin: { action: "On Log in clicked. " },
+    },
 } as ComponentMeta<typeof Login>;
 
-
-const onLogin = async (email: string, password: string) => {
-    alert(`Log in Successfully: Email: ${email},  Password: ${password}`);
-};
-
-const Template: ComponentStory<typeof Login> = () => <Login onLogin={onLogin} />;
+const Template: ComponentStory<typeof Login> = (args) => <Login {...args} />;
 
 export const Default = Template.bind({});

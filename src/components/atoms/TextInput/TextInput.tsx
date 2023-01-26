@@ -15,6 +15,7 @@ export type TextInputProps = {
     placeholder?: string;
     prefix?: React.ReactNode;
     onChange?: (e: any) => void;
+    onBlur?: (e: any) => void;
     onPressEnter?: () => void;
 }
 
@@ -29,6 +30,7 @@ const TextInput = ({
         prefix, 
         onChange, 
         onPressEnter,
+        onBlur,
     }: TextInputProps) => {
     return (
         <div>
@@ -43,6 +45,7 @@ const TextInput = ({
                 onChange={onChange}
                 onPressEnter={onPressEnter}
                 maxLength={maxLength}
+                onBlur={onBlur}
             />
         </div>
     );
