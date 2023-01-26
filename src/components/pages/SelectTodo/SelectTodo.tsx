@@ -14,16 +14,16 @@ const SelectTodo = () => {
 
     const deleteTodoHandler = (ids: string[]) => {
         dispatch({ type: "DELETE_SELECTED", ids });
-        navigate("/todo");
+        navigate("/");
     };
 
     const completeTodoHandler = (ids: string[]) => {
         dispatch({ type: "COMPLETE_SELECTED", ids });
-        navigate("/todo");
+        navigate("/");
     };
 
     const onBackHandler = () => {
-        navigate("/todo");
+        navigate("/");
     }
 
     const onAddTodoHandler = () => {
