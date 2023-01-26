@@ -7,6 +7,7 @@ import { useTodoContext } from '../../../context/';
 const SelectTodo = () => {
     const { state, dispatch } = useTodoContext();
     const navigate = useNavigate();
+    const notDoneTodos = state.todos.filter(todo => !todo.isDone);
 
     useEffect(() => {
         dispatch({ type: "SORT_TODOS_BY_COMPLETED" });
@@ -33,7 +34,7 @@ const SelectTodo = () => {
     return (
         <div>
             <SelectTodoTemplate 
-                todos={state.todos} 
+                todos={notDoneTodos} 
                 deleteTodos={deleteTodoHandler}
                 completeTodos={completeTodoHandler}
                 onBack={onBackHandler}
