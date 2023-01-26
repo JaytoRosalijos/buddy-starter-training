@@ -48,5 +48,5 @@ const variances = {
 export const ButtonStyle = styled(Button)`
     ${baseStyle}
     ${(props: ButtonProps) => variances[props.variance || 'primary']}
-    ${(props: ButtonProps) => props.isModalButton && `width: 80px` }
+    ${(props: ButtonProps) => props.$isModalButton && `width: 80px;` }
 `;
