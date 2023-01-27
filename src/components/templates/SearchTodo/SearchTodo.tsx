@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Header } from '../../molecules/Header';
 import { TextInput } from '../../atoms/TextInput';
@@ -33,15 +33,13 @@ const SearchTodo = ({
     const [query, setQuery] = useState("");
     const [selectedTodoIds, setSelectedTodoIds] = useState<string[]>([]);
 
-    const isShowSelectModal = query.length !== 0 && selectedTodoIds.length !== 0 && filteredTodos.length !== 0;
+    const isShowSelectModal = !!(query.length && selectedTodoIds.length && filteredTodos.length);
 
-    const filterBySearch = (event) => {
-        const _query = event.currentTarget.value;
-        setQuery(_query);
-        setFilteredTodos(todos.filter(todo => {
-            return _query.length !== 0 && todo.title.toLowerCase().indexOf(_query.toLowerCase()) !== -1;
-        }));
-    };
+    useEffect(() => {
+        setFilteredTodos(
+            todos.filter(todo => query.length && todo.title.toLowerCase().indexOf(query.toLowerCase()) !== -1
+        ));
+    }, [query, todos])
 
     const onSelectedTodoHandler = (todo: TodoType) => {
         if (selectedTodoIds.includes(todo.id))
@@ -62,13 +60,17 @@ const SearchTodo = ({
         deleteTodos(selectedTodoIds);
     };
 
+    const onChangeInputHandler = (e: React.FormEvent<HTMLInputElement>) => {
+        setQuery(e.currentTarget.value);
+    };
+
     return (
         <Wrapper>
             <Header title="Search to do" type="navigation" onBack={onBack} />
             <SearchWrapper>
                 <TextInput 
                     prefix={<SearchIcon />} 
-                    onChange={filterBySearch} 
+                    onChange={onChangeInputHandler} 
                     allowClear 
                 />
             </SearchWrapper>
