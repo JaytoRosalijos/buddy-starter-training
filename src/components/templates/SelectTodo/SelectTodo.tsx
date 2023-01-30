@@ -37,7 +37,7 @@ const SelectTodo = ({
     };
 
     const onSelectAllHandler = () => {
-        setSelectedTodoIds(todos.filter(todo => !todo.isDone).map(todo => todo.id));
+        setSelectedTodoIds(todos.map(todo => todo.id));
     };
 
     const onCompleteSelectedHandler = () => {

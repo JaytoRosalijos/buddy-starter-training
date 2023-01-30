@@ -46,7 +46,7 @@ const TodoList = ({
                         onDeleteTodo={()=> onToBeDeleteTodo(todo)}
                         onUpdateTodo={() => onUpdateTodo(todo)}
                         isActiveKebab={todo.id === activeId}
-                        showKebab={!todo.isDone}
+                        showKebab
                     />   
                 )
             }
