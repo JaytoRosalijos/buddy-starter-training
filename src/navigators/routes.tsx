@@ -1,4 +1,5 @@
 import { Login } from '../components/pages/Login';
+import { Registration } from '../components/pages/Registration';
 import { TodoHome } from '../components/pages/TodoHome';
 import { AddTodo } from '../components/pages/AddTodo';
 import { UpdateTodo } from '../components/pages/UpdateTodo';
@@ -17,7 +18,7 @@ const routes: routesType = [
     },
     {
         path: "/register",
-        component: <div>Register Page</div>,
+        component: <Registration />,
     },
 ];
 

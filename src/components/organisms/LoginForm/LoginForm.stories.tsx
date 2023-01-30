@@ -7,12 +7,11 @@ import { LoginForm } from '.';
 export default {
     title: "Organisms/LoginForm",
     component: LoginForm,
+    argTypes: {
+        onLogin: { action: "On Log in clicked." },
+    },
 } as ComponentMeta<typeof LoginForm>;
 
-const onLogin = async (email: string, password: string) => {
-    alert(`Log in Successfully: Email: ${email},  Password: ${password}`);
-};
-
-const Template: ComponentStory<typeof LoginForm> = (args) => <LoginForm onLogin={onLogin} />;
+const Template: ComponentStory<typeof LoginForm> = (args) => <LoginForm {...args} />;
 
 export const Default = Template.bind({});

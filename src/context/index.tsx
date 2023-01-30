@@ -1,3 +1,9 @@
 import { TodoProvider, useTodoContext } from './TodoContext';
+import { UserProvider, useUserContext } from './UserContext';
 
-export { TodoProvider, useTodoContext };
+export { 
+    TodoProvider, 
+    useTodoContext,
+    UserProvider,
+    useUserContext,
+};
