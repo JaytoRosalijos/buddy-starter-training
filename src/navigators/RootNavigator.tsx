@@ -3,6 +3,8 @@ import { AuthRoute, ProtectedRoute } from "./RouteGuards";
 import { privateRoutes, routes } from "./routes";
 
 export const RootNavigator = () => {
+    // TODO: handle non-existing url / 404 page
+    
     return (
         <BrowserRouter>
             <Routes>

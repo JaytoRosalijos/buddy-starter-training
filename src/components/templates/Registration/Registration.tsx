@@ -12,7 +12,7 @@ import {
 } from './styles';
 
 
-const Registration = ({ onRegister }: RegistrationFormProps) => {
+const Registration = ({ onRegister, apiError }: RegistrationFormProps) => {
     return (
         <Wrapper>
             <TitleWrapper>
@@ -21,7 +21,7 @@ const Registration = ({ onRegister }: RegistrationFormProps) => {
                 <SubtitleWrapper>Do your wish, very easyish</SubtitleWrapper>
             </TitleWrapper>
             <BodyWrapper>
-                <RegistrationForm onRegister={onRegister} />
+                <RegistrationForm onRegister={onRegister} apiError={apiError} />
             </BodyWrapper>
         </Wrapper>
     );

@@ -1,21 +1,18 @@
 import { Navigate, RouteProps, } from 'react-router-dom';
+import { useAuthContext } from '../context';
 
 export type ProtectedRouteProps = {
     component: JSX.Element;
 } & RouteProps;
 
-
-
 export const ProtectedRoute = ({ component }: ProtectedRouteProps) => {
-    // TODO: add routing logic if user is logged in or not
-    const isLoggedIn = true;
+    const { state } = useAuthContext();
 
-    return isLoggedIn ? component : <Navigate to="/login" replace={true} />
+    return state.isLoggedIn ? component : <Navigate to="/login" replace={true} />
 };
 
 export const AuthRoute = ({ component }: ProtectedRouteProps) => {
-    // TODO: add routing logic if user is logged in or not
-    const isLoggedIn = false;
-
-    return !isLoggedIn ? component : <Navigate to="/" replace={true} />
+    const { state } = useAuthContext();
+    
+    return !state.isLoggedIn ? component : <Navigate to="/" replace={true} />
 };
