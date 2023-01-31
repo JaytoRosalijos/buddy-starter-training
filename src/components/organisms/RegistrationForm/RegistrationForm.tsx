@@ -8,16 +8,25 @@ import { RegistrationSchema } from './validations';
 
 export type RegistrationFormProps = {
     onRegister: (email: string, password: string) => Promise<void>;
+    apiError?: { message: string };
 };
 
 const RegistrationForm = ({ 
     onRegister,
+    apiError,
 }: RegistrationFormProps) => {
     return (
         <div>
             <Formik
                 initialValues={{ email: "", password: "" }}
-                onSubmit={values => onRegister(values.email, values.password)}
+                onSubmit={async (values, { setSubmitting }) => {
+                    try {
+                        setSubmitting(true);
+                        await onRegister(values.email, values.password);
+                    } finally {
+                        setSubmitting(false);
+                    }
+                }}
                 validationSchema={RegistrationSchema}
                 validateOnBlur={true}
                 validateOnChange={false}
@@ -29,6 +38,7 @@ const RegistrationForm = ({
                     handleBlur,
                     errors,
                     touched,
+                    isSubmitting,
                 }) => ( 
                         <form onSubmit={handleSubmit}>
                             <Wrapper>
@@ -48,10 +58,11 @@ const RegistrationForm = ({
                                     onBlur={handleBlur}
                                 />
                             </Wrapper>
-                            <Button block htmlType="submit">Register</Button>
+                            <Button block htmlType="submit" disabled={isSubmitting}>Register</Button>
                             <ErrorWrapper>
                                 { touched.email && errors.email && <p>{errors.email}</p> }
                                 { touched.password && errors.password && <p>{errors.password}</p> }
+                                { apiError?.message && <p>{apiError?.message}</p> }
                             </ErrorWrapper>
                         </form>
                     )

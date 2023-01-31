@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import TodoHomeTemplate from '../../templates/TodoHome/TodoHome';
-import { useTodoContext } from '../../../context/';
+import { useTodoContext, useAuthContext } from '../../../context/';
 import { TodoType } from '../../../data';
 
 const TodoHome = () => {
+    const { logoutUser } = useAuthContext();
     const { state, dispatch } = useTodoContext();
     const navigate = useNavigate();
 
@@ -30,7 +31,8 @@ const TodoHome = () => {
     };
 
     const onLogout = () => {
-        alert("Redirect to Logout Page...");
+        logoutUser();
+        navigate("/login");
     };
 
     const onDeleteTodoHandler = (id: string) => {

@@ -1,22 +1,27 @@
-import React from 'react';
-import { LoginFormProps } from '../../organisms/LoginForm/LoginForm';
+import React, { useState } from 'react';
 
 import { Login as LoginTemplate } from "../../templates/Login";
 import { useNavigate } from "react-router-dom";
-
+import { useAuthContext } from '../../../context';
 
 const Login = () => {
     const navigate = useNavigate();
+    const { loginUser } = useAuthContext();
+    const [apiError, setApiError] = useState({ message: "" });
     
-    const props: LoginFormProps = {
-        onLogin: async (email, password) => {
+    const onLogin = async (email: string, password: string) => {
+        setApiError({ message: "" });
+        try {
+            await loginUser(email, password);
             navigate("/");
-        },
+        } catch (error: any) {
+            setApiError({ message: error.message });
+        }
     };
 
     return (
         <div>
-            <LoginTemplate {...props} />
+            <LoginTemplate onLogin={onLogin} apiError={apiError} />
         </div>
     );
 };

@@ -1,17 +1,17 @@
 import React from 'react';
 import './App.css';
-
+import './config/firebase';
 import { RootNavigator } from './navigators';
-import { TodoProvider, UserProvider } from './context';
+import { TodoProvider, AuthProvider } from './context';
 
 function App() {
   return (
     <div className="App">
-      <UserProvider>
+      <AuthProvider>
         <TodoProvider>
           <RootNavigator />
         </TodoProvider>
-      </UserProvider>
+      </AuthProvider>
     </div>
   );
 }
