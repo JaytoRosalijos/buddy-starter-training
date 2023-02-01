@@ -14,15 +14,15 @@ import {
 
 
 export type AddTodoProps = {
-    onAddTodo: (title: string) => void;
+    onAddTodo: (title: string) => Promise<void>;
     onBack: (e: any) => void;
 };
 
 const AddTodo = ({ onAddTodo, onBack, }: AddTodoProps) => {
     const [showToast, setShowToast] = useState(false);
 
-    const onSubmitHandler = (title: string) => {
-        onAddTodo(title);
+    const onSubmitHandler = async (title: string) => {
+        await onAddTodo(title);
         setShowToast(true);
     };
 

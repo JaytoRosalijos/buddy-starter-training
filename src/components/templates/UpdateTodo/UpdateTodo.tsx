@@ -15,7 +15,7 @@ import { TodoType } from '../../../data';
 
 export type UpdateTodoProps = {
     todo: TodoType,
-    onUpdateTodo: (id: string, title: string) => void;
+    onUpdateTodo: (id: string, title: string) => Promise<void>;
     onBack: () => void;
 };
 
@@ -25,8 +25,9 @@ const UpdateTodo = ({ todo, onUpdateTodo, onBack }: UpdateTodoProps) => {
             <Header title="Update to do" type="navigation" onBack={onBack} />
             <SearchWrapper>
                 <Formik
+                    enableReinitialize 
                     initialValues={{ title: todo.title }}
-                    onSubmit={({ title },) => onUpdateTodo(todo.id, title)}
+                    onSubmit={async ({ title },) => await onUpdateTodo(todo.id, title)}
                     validationSchema={UpdateTodoSchema}
                 >
                     {

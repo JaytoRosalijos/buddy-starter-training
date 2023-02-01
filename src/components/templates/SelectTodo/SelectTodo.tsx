@@ -14,8 +14,8 @@ import { NoTodo } from '../../molecules/NoTodo';
 
 export type SelectTodoProps =   {
     todos: TodoType[],
-    deleteTodos: (ids: string[]) => void;
-    completeTodos: (ids: string[]) => void;
+    deleteTodos: (ids: string[]) => Promise<void>;
+    completeTodos: (ids: string[]) => Promise<void>;
     onBack: () => void;
     onAddTodo: () => void;
 };
@@ -40,12 +40,12 @@ const SelectTodo = ({
         setSelectedTodoIds(todos.map(todo => todo.id));
     };
 
-    const onCompleteSelectedHandler = () => {
-        completeTodos(selectedTodoIds);
+    const onCompleteSelectedHandler = async () => {
+        await completeTodos(selectedTodoIds);
     };
 
-    const onDeleteSelectedHandler = () => {
-        deleteTodos(selectedTodoIds);
+    const onDeleteSelectedHandler = async () => {
+        await deleteTodos(selectedTodoIds);
     };
 
     return (

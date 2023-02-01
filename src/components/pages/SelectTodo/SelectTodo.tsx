@@ -5,21 +5,21 @@ import { SelectTodo as SelectTodoTemplate } from '../../templates/SelectTodo';
 import { useTodoContext } from '../../../context/';
 
 const SelectTodo = () => {
-    const { state, dispatch } = useTodoContext();
+    const { state, completeSelectedTodos, deleteSelectedTodos, sortTodosByCompleted } = useTodoContext();
     const navigate = useNavigate();
     const notDoneTodos = state.todos.filter(todo => !todo.isDone);
 
     useEffect(() => {
-        dispatch({ type: "SORT_TODOS_BY_COMPLETED" });
-    }, [dispatch]);
+        sortTodosByCompleted();
+    }, []);
 
-    const deleteTodoHandler = (ids: string[]) => {
-        dispatch({ type: "DELETE_SELECTED", ids });
+    const deleteTodoHandler = async (ids: string[]) => {
+        await deleteSelectedTodos(ids);
         navigate("/");
     };
 
-    const completeTodoHandler = (ids: string[]) => {
-        dispatch({ type: "COMPLETE_SELECTED", ids });
+    const completeTodoHandler = async (ids: string[]) => {
+        await completeSelectedTodos(ids);
         navigate("/");
     };
 

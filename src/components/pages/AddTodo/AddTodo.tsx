@@ -6,15 +6,15 @@ import { useTodoContext } from '../../../context/';
 
 
 const AddTodo = () => {
-    const { dispatch } = useTodoContext();
+    const { addTodo } = useTodoContext();
     const navigate = useNavigate();
     
     const onBack = () => {
         navigate("/");
     };
 
-    const onAddTodoHandler = (title: string) => {
-        dispatch({ type: "ADD", title });
+    const onAddTodoHandler = async (title: string) => {
+        await addTodo(title);
     };
 
     return (
