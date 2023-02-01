@@ -4,6 +4,7 @@
 /node_modules
 /backend/node_modules
 /backend/dist
+/backend/buddy-starter-training-api-firebase-adminsdk-5i4dr-da9b2299ac.json
 /.pnp
 .pnp.js
 
