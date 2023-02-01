@@ -5,7 +5,7 @@ class TodoService {
     async getAll(userId: string,): Promise<TodoDto[]> {
         const todos: TodoDto[] = [];
         const document = firestoreDatabase.collection("users").doc(userId)
-        const snapshot = await document.collection("todos").get();
+        const snapshot = await document.collection("todos").orderBy("isDone", "desc").get();
         snapshot.forEach((doc) => {
             todos.push({ id: doc.id, title: doc.data().title, isDone: doc.data().isDone })
         })
@@ -71,8 +71,30 @@ class TodoService {
                                             .collection("todos")
                                             .doc(id);
             batch.delete(todosRef);
-        })
+        });
         await batch.commit();
+    }
+
+    async searchTodo(userId: string, query: string): Promise<TodoDto[]> {
+        const todos: TodoDto[] = [];
+        
+        if (!query.trim())
+            return [];
+
+        const snapshot = await firestoreDatabase.collection("users")
+                        .doc(userId)
+                        .collection("todos")
+                        .where("title", ">=", query)
+                        .where("title", "<", query + "z")
+                        .orderBy("title")
+                        .orderBy("isDone", "desc")
+                        .get();
+        
+        snapshot.forEach((doc) => {
+            todos.push({ id: doc.id, title: doc.data().title, isDone: doc.data().isDone })
+        })
+        
+        return todos;
     }
 }
 

@@ -5,6 +5,7 @@ import TodoController from '../controllers/todo.controller'
 const todoRouter: Router = express.Router()
 
 todoRouter.get("", TodoController.getAll);
+todoRouter.get("/search", TodoController.searchTodo);
 todoRouter.get("/:id", TodoController.get);
 todoRouter.post("", TodoController.create);
 todoRouter.patch("/complete-selected", TodoController.completeSelected);
