@@ -7,12 +7,12 @@ import { TodoType } from '../../../data';
 
 const TodoHome = () => {
     const { logoutUser } = useAuthContext();
-    const { state, dispatch } = useTodoContext();
+    const { state, deleteTodo, sortTodosByCompleted, clearGlobalAction } = useTodoContext();
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch({ type: "SORT_TODOS_BY_COMPLETED" });
-    }, [dispatch]);
+         sortTodosByCompleted();
+    }, []);
     
     const onAddTodo = () => {
         navigate("/todo/add");
@@ -35,12 +35,12 @@ const TodoHome = () => {
         navigate("/login");
     };
 
-    const onDeleteTodoHandler = (id: string) => {
-        dispatch({ type: "DELETE", id });
+    const onDeleteTodoHandler = async (id: string) => {
+        await deleteTodo(id);
     };
 
     const onClearGlobalActionHandler = () => {
-        dispatch({ type: "CLEAR_GLOBAL_ACTION" });
+        clearGlobalAction();
     };
     
     return (

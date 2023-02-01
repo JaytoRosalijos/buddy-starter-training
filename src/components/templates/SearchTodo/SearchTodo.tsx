@@ -18,8 +18,8 @@ import { NoTodo } from '../../molecules/NoTodo';
 
 export type AddTodoProps = {
     todos: TodoType[],
-    deleteTodos: (ids: string[]) => void;
-    completeTodos: (ids: string[]) => void;
+    deleteTodos: (ids: string[]) => Promise<void>;
+    completeTodos: (ids: string[]) => Promise<void>;
     onBack: () => void;
 };
 
@@ -52,12 +52,12 @@ const SearchTodo = ({
         setSelectedTodoIds(filteredTodos.filter(todo => !todo.isDone).map(todo => todo.id));
     };
 
-    const onCompleteSelectedHandler = () => {
-        completeTodos(selectedTodoIds);
+    const onCompleteSelectedHandler = async () => {
+        await completeTodos(selectedTodoIds);
     };
 
-    const onDeleteSelectedHandler = () => {
-        deleteTodos(selectedTodoIds);
+    const onDeleteSelectedHandler = async () => {
+        await deleteTodos(selectedTodoIds);
     };
 
     const onChangeInputHandler = (e: React.FormEvent<HTMLInputElement>) => {

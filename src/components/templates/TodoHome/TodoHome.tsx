@@ -26,7 +26,7 @@ import { GlobalAction } from '../../../context/TodoContext';
 export type TodoHomeProps = {
     todos?: TodoType[];
     onLogout: (e: any) => void;
-    deleteTodo: (id: string) => void;
+    deleteTodo: (id: string) => Promise<void>;
     onAddTodo: () => void;
     onUpdateTodo: (todo: TodoType) => void;
     onSearch: () => void;
@@ -90,8 +90,8 @@ const TodoHome = ({
         clearGlobalAction();
     };
     
-    const onDeleteTodoHandler = () => {
-        deleteTodo(deleteItemModalStatus.toBeDeletedId);
+    const onDeleteTodoHandler = async () => {
+        await deleteTodo(deleteItemModalStatus.toBeDeletedId);
         setDeleteItemModalStatus({ toBeDeletedId: "", show: false });
     };
 

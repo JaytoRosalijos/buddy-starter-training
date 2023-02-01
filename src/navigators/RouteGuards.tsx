@@ -6,13 +6,13 @@ export type ProtectedRouteProps = {
 } & RouteProps;
 
 export const ProtectedRoute = ({ component }: ProtectedRouteProps) => {
-    const { state } = useAuthContext();
+    const { authState } = useAuthContext();
 
-    return state.isLoggedIn ? component : <Navigate to="/login" replace={true} />
+    return authState.isLoggedIn ? component : <Navigate to="/login" replace={true} />
 };
 
 export const AuthRoute = ({ component }: ProtectedRouteProps) => {
-    const { state } = useAuthContext();
+    const { authState } = useAuthContext();
     
-    return !state.isLoggedIn ? component : <Navigate to="/" replace={true} />
+    return !authState.isLoggedIn ? component : <Navigate to="/" replace={true} />
 };
