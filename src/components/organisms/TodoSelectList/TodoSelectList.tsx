@@ -15,7 +15,7 @@ const TodoSelectList = ({ todos, onSelectedTodo, selectedIds }: TodoProps) => {
     return (
         <Wrapper>
             { 
-                todos.map(todo => 
+                todos?.map(todo => 
                     (
                         todo.isDone ?
                         <TodoListItem 

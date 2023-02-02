@@ -14,6 +14,7 @@ export default {
         onSearch: { action: "Redirect to Search Page" }, 
         onUpdateTodo: { action: "Redirect to Update To Do Page" },
         deleteTodo: { action: "Delete To Do" },
+        clearGlobalAction: { action: "Clear global Action" },
     },
 } as ComponentMeta<typeof TodoHome>;
 

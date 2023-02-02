@@ -1,5 +1,6 @@
 import "../src/index.css";
 import { TodoProvider } from '../src/context';
+import { AuthProvider } from "../src/context";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -13,8 +14,10 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <TodoProvider>
-      <Story />
-    </TodoProvider>
+    <AuthProvider>
+      <TodoProvider>
+        <Story />
+      </TodoProvider>
+    </AuthProvider>
   ),
 ];
