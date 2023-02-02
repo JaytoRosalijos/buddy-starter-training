@@ -86,6 +86,18 @@ class TodoController {
             next(error);
         }
     }
+
+    async searchTodo(req: express.Request, res: express.Response, next: express.NextFunction) {
+        try {
+            const query = req.query.query as string;
+            const userId = (req as CustomRequest).userId;
+            const todos: TodoDto[] = await TodoService.searchTodo(userId, query);
+
+            res.status(200).json({ isOperationSuccess: true, query: query, todos });
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 export default new TodoController();

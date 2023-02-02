@@ -9,6 +9,7 @@ export const apiUrls = {
         completeTodos: `${API_URL}/todo/complete-selected`,
         deleteTodo: (todoId: string) => `${API_URL}/todo/${todoId}`,
         deleteTodos: `${API_URL}/todo/delete-selected`,
+        searchTodos: (query: string) => `${API_URL}/todo/search?query=${query}`,
     },
 };
 

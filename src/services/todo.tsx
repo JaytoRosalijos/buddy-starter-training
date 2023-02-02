@@ -30,6 +30,10 @@ const completeSelectedTodos = (ids: string[]) => {
     return httpAxiosAdapter.patch(apiUrls.todo.completeTodos, { ids });
 };
 
+export const searchTodos = (query: string) => {
+    return httpAxiosAdapter.get(apiUrls.todo.searchTodos(query));
+};
+
 export const TodoService = {
     getTodos,
     getTodoById,
@@ -38,4 +42,5 @@ export const TodoService = {
     deleteTodo,
     deleteSelectedTodos,
     completeSelectedTodos,
+    searchTodos,
 }

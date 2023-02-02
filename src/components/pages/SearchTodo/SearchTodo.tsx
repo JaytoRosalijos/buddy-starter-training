@@ -1,17 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { SearchTodo as SearchTodoTemplate } from '../../templates/SearchTodo';
 import { useTodoContext } from '../../../context';
+import { useTodoQuery } from '../../../hooks/useTodoQuery';
 
 const SearchTodo = () => {
-    const { state, completeSelectedTodos, deleteSelectedTodos, sortTodosByCompleted } = useTodoContext();
     const navigate = useNavigate();
+    const { completeSelectedTodos, deleteSelectedTodos, } = useTodoContext();
+    const { queryTodos, setQuery, query } = useTodoQuery()
     
-    useEffect(() => {
-        sortTodosByCompleted();
-    }, []);
-
     const deleteTodoHandler = async (ids: string[]) => {
         await deleteSelectedTodos(ids);
         navigate("/");
@@ -26,12 +24,18 @@ const SearchTodo = () => {
         navigate("/");
     };
 
+    const onSearhchInputHandler = (query: string) => {
+        setQuery(query);
+    }
+
     return (
         <div>
             <SearchTodoTemplate 
-                todos={state.todos} 
+                query={query}
+                todos={queryTodos} 
                 deleteTodos={deleteTodoHandler}
                 completeTodos={completeTodoHandler}
+                onSearchInput={onSearhchInputHandler}
                 onBack={onBackHandler}
             />
         </div>

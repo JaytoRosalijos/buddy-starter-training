@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Header } from '../../molecules/Header';
 import { TextInput } from '../../atoms/TextInput';
@@ -17,29 +17,24 @@ import { TodoType } from '../../../data';
 import { NoTodo } from '../../molecules/NoTodo';
 
 export type AddTodoProps = {
+    query: string,
     todos: TodoType[],
     deleteTodos: (ids: string[]) => Promise<void>;
     completeTodos: (ids: string[]) => Promise<void>;
+    onSearchInput: (query: string) => void;
     onBack: () => void;
 };
 
 const SearchTodo = ({ 
+        query,
         todos,
         deleteTodos, 
         completeTodos, 
         onBack, 
+        onSearchInput,
     }: AddTodoProps) => {
-    const [filteredTodos, setFilteredTodos] = useState<TodoType[]>([]);
-    const [query, setQuery] = useState("");
     const [selectedTodoIds, setSelectedTodoIds] = useState<string[]>([]);
-
-    const isShowSelectModal = !!(query.length && selectedTodoIds.length && filteredTodos.length);
-
-    useEffect(() => {
-        setFilteredTodos(
-            todos.filter(todo => query.length && todo.title.toLowerCase().indexOf(query.toLowerCase()) !== -1
-        ));
-    }, [query, todos])
+    const isShowSelectModal = !!(query.length && selectedTodoIds.length && todos.length);
 
     const onSelectedTodoHandler = (todo: TodoType) => {
         if (selectedTodoIds.includes(todo.id))
@@ -49,7 +44,7 @@ const SearchTodo = ({
     };
 
     const onSelectAllHandler = () => {
-        setSelectedTodoIds(filteredTodos.filter(todo => !todo.isDone).map(todo => todo.id));
+        setSelectedTodoIds(todos.filter(todo => !todo.isDone).map(todo => todo.id));
     };
 
     const onCompleteSelectedHandler = async () => {
@@ -61,7 +56,7 @@ const SearchTodo = ({
     };
 
     const onChangeInputHandler = (e: React.FormEvent<HTMLInputElement>) => {
-        setQuery(e.currentTarget.value);
+        onSearchInput(e.currentTarget.value);
     };
 
     return (
@@ -76,7 +71,7 @@ const SearchTodo = ({
             </SearchWrapper>
             <SelectListWrapper $showModal={isShowSelectModal}>
                 {
-                    query.length !== 0 && filteredTodos.length === 0 ? 
+                    query.length !== 0 && todos.length === 0 ? 
                     (
                         <NoTodoWrapper>
                             <NoTodo>
@@ -88,7 +83,7 @@ const SearchTodo = ({
                     (
                         <TodoSelectListWrapper>
                             <TodoSelectList 
-                                todos={filteredTodos} 
+                                todos={todos} 
                                 onSelectedTodo={onSelectedTodoHandler} 
                                 selectedIds={selectedTodoIds}
                             />
