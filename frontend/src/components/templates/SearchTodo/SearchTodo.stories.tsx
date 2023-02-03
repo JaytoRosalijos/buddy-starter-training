@@ -18,5 +18,10 @@ const Template: ComponentStory<typeof SearchTodo> = (args) => <SearchTodo { ...a
 
 export const Default = Template.bind({});
 Default.args = {
-    todos: todos,
+    todos: todos    ,
+};
+
+export const Empty = Template.bind({});
+Default.args = {
+    todos: []    ,
 };

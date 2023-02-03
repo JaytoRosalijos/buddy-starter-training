@@ -34,7 +34,7 @@ const SearchTodo = ({
         onSearchInput,
     }: AddTodoProps) => {
     const [selectedTodoIds, setSelectedTodoIds] = useState<string[]>([]);
-    const isShowSelectModal = !!(query.length && selectedTodoIds.length && todos.length);
+    const isShowSelectModal = !!(query?.length && selectedTodoIds?.length && todos?.length);
 
     const onSelectedTodoHandler = (todo: TodoType) => {
         if (selectedTodoIds.includes(todo.id))
@@ -44,7 +44,7 @@ const SearchTodo = ({
     };
 
     const onSelectAllHandler = () => {
-        setSelectedTodoIds(todos.filter(todo => !todo.isDone).map(todo => todo.id));
+        setSelectedTodoIds(todos?.filter(todo => !todo.isDone)?.map(todo => todo.id));
     };
 
     const onCompleteSelectedHandler = async () => {
@@ -71,7 +71,7 @@ const SearchTodo = ({
             </SearchWrapper>
             <SelectListWrapper $showModal={isShowSelectModal}>
                 {
-                    query.length !== 0 && todos.length === 0 ? 
+                    query?.length !== 0 && todos?.length === 0 ? 
                     (
                         <NoTodoWrapper>
                             <NoTodo>
