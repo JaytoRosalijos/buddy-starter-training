@@ -8,7 +8,8 @@ import { useTodoQuery } from '../../../hooks/useTodoQuery';
 const SearchTodo = () => {
     const navigate = useNavigate();
     const { completeSelectedTodos, deleteSelectedTodos, } = useTodoContext();
-    const { queryTodos, setQuery, query } = useTodoQuery()
+    const { queryTodos, setQuery, query } = useTodoQuery();
+    const sortTodosByCompleted = [...queryTodos].sort((a, b) =>  (+ a.isDone) - (+ b.isDone));
     
     const deleteTodoHandler = async (ids: string[]) => {
         await deleteSelectedTodos(ids);
@@ -32,7 +33,7 @@ const SearchTodo = () => {
         <div>
             <SearchTodoTemplate 
                 query={query}
-                todos={queryTodos} 
+                todos={sortTodosByCompleted} 
                 deleteTodos={deleteTodoHandler}
                 completeTodos={completeTodoHandler}
                 onSearchInput={onSearhchInputHandler}

@@ -85,9 +85,7 @@ class TodoService {
                         .doc(userId)
                         .collection("todos")
                         .where("title", ">=", query)
-                        .where("title", "<", query + "z")
-                        .orderBy("title")
-                        .orderBy("isDone", "desc")
+                        .where("title", "<", query + "\uf8ff")
                         .get();
         
         snapshot.forEach((doc) => {
