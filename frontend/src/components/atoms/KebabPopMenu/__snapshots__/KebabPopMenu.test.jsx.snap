@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[Atom] Kebab Pop Menu Kebab Pop Menu renders correctly with props 1`] = `
+<svg
+  aria-describedby="popup-2"
+  className="sc-hLBbgP icHdEJ"
+  onClick={[Function]}
+>
+  kebab.svg
+</svg>
+`;
+
+exports[`[Atom] Kebab Pop Menu Kebab Pop Menu renders correctly without props 1`] = `
+<svg
+  aria-describedby="popup-1"
+  className="sc-hLBbgP cGrljD"
+  onClick={[Function]}
+>
+  kebab.svg
+</svg>
+`;
